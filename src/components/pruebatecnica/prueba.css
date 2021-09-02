@@ -1,0 +1,21 @@
+.containertest{
+    padding: 12px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.id{
+    padding: 0 35px 0 0;
+}
+.correo{
+    padding: 0 0 0 12px;
+}

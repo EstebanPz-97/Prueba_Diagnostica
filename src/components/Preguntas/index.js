@@ -8,6 +8,8 @@ import { Collapse } from '@material-ui/core';
 import { IconButton} from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Close } from '@material-ui/icons';
+import logoalteru from '../../assets/img/logoalteru.png';
+import { purple } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     height: 50,
     paddingLeft: theme.spacing(4),
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: '#5E35B1',
   },
 
 }));
@@ -107,6 +109,7 @@ export const Preguntas = () => {
   };
     return (
          <div className="container-quiz">
+           <img src={logoalteru} alt="logo"/>
         <div className={classes.root}>
       <Paper square elevation={0} className={classes.header}>
         <Typography>{tutorialSteps[activeStep].label}</Typography>

@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import './preguntas.scss'
-import { Radio, RadioGroup,FormControlLabel,FormControl,FormLabel,Button,MobileStepper,Paper,Typography } from '@material-ui/core';
+import {Radio, RadioGroup,FormControlLabel,FormLabel,Button,MobileStepper,Paper,Typography } from '@material-ui/core';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import Alert from '@material-ui/lab/Alert';
+import { Collapse } from '@material-ui/core';
+import { IconButton} from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Close } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,9 +25,8 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 export const Preguntas = () => {
-
+  const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-  // const [error, setError]= useState(false);
   const [count ,setCount] = useState(0)
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -64,7 +67,18 @@ export const Preguntas = () => {
       <FormControlLabel value="option4.1" control={<Radio />} label="lorem" />
       <FormControlLabel value="true4" control={<Radio />} label="lorem" />
       <FormControlLabel value="option4.2" control={<Radio />} label="lorem" />
-    </RadioGroup>,
+      <Button
+        disabled={open}
+        variant="outlined"
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Terminado
+      </Button>
+    </RadioGroup>
+
+    ,
     },
   ];
   const classes = useStyles();
@@ -118,17 +132,26 @@ export const Preguntas = () => {
       />
     </div>
 
+      <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+            aria-label="close"
+            color="inherit"
+            size="small"
+            onClick={() => {
+              setOpen(false);
+            }}
+            >
 
-
-          <form > 
-          <h1>Score {count}</h1>
-           <FormControl component="fieldset">
-       <Button type="submit" variant="outlined" color="primary" className="button">
-        Siguiente
-        </Button>
-    </FormControl>
-
-    </form>
-         </div>
+              <Close fontSize="inherit" />
+            </IconButton>
+          }
+          >
+      <h1>Tu puntaje es: {count}</h1>
+        </Alert>
+      </Collapse>
+     
+     </div>
      );
 };

@@ -4,22 +4,22 @@ import './prueba.css';
 export const Prueba = () =>{
     return(
         <div className="containertest">
-            <img src={logoalteru} alt="logo"/>
+            <div><img src={logoalteru} alt="logo"/></div>
             <form>
-            <p>
+            <div>
                 <label>Nombre</label>
                 <input type="text" name="nombre" required></input>
-            </p>
-            <p>
+            </div>
+            <div className="id">
                 <label>Identificación</label>
                 <input type="number" name="identificacion" required></input>
-            </p> 
-            <p>
+            </div> 
+            <div className="correo">
                 <label>Correo</label>
                 <input type="email" name="email" required></input>
-            </p>
+            </div>
             </form>
-            <button>Iniciar prueba</button>
+            <button type="submit">Iniciar prueba</button>
         </div>
     )
 }

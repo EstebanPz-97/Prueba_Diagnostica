@@ -1,4 +1,4 @@
-import { Prueba } from "./pruebatecnica/Prueba.js";
+import Prueba from "./components/pruebatecnica/Prueba.js";
 
 
 function App() {

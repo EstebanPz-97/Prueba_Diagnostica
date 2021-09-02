@@ -1,5 +1,6 @@
-import logoalteru from '../assets/img/logoalteru.png';
+import logoalteru from '../../assets/img/logoalteru.png';
 import './prueba.css';
+
 export const Prueba = () =>{
     return(
         <div className="containertest">

@@ -9,7 +9,9 @@ import { IconButton} from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Close } from '@material-ui/icons';
 import logoalteru from '../../assets/img/logoalteru.png';
-import { purple } from '@material-ui/core/colors';
+import { db } from '../../firebase/config';
+import { useFormik } from 'formik';
+import { addDoc, collection } from '@firebase/firestore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,12 +38,12 @@ export const Preguntas = () => {
     };
   const tutorialSteps = [
     {
-      label:<FormLabel component="legend">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum perferendis consequuntur molestias numquam, dolore facilis corrupti ea voluptas quaerat voluptate assumenda laborum quas illo nisi culpa, distinctio aperiam dolor veritatis?</FormLabel>,
+      label:<FormLabel component="legend" name="pregunta">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum perferendis consequuntur molestias numquam, dolore facilis corrupti ea voluptas quaerat voluptate assumenda laborum quas illo nisi culpa, distinctio aperiam dolor veritatis?</FormLabel>,
       content:
       <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-      <FormControlLabel value="option1.1" control={<Radio />} label="lorem" />
-      <FormControlLabel value="true1" control={<Radio />} label="lorem" />
-      <FormControlLabel value="option1.2" control={<Radio />} label="lorem" />
+      <FormControlLabel value="option1.1" name="rta" control={<Radio />} label="lorem" />
+      <FormControlLabel value="true1" name="rta" control={<Radio />} label="lorem" />
+      <FormControlLabel value="option1.2" name="rta" control={<Radio />} label="lorem" />
     </RadioGroup>   ,
     },
     {
@@ -101,12 +103,60 @@ export const Preguntas = () => {
     }else{
       setCount (count + 0)
     }
-
   };
   
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+  const formik = useFormik({
+    initialValues:{
+      Pregunta:'',
+      rta:''
+    },
+    onSubmit: values =>{
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (value === "true1"){
+      setCount (count + 1 );
+    } else if (value === "true2") {
+      setCount (count + 1 );
+    }else if (value === "true3"){
+      setCount(count + 1)
+    }else if (value === "true4"){
+      setCount (count +1)
+    }else{
+      setCount (count + 0)
+    }
+    alert(JSON.stringify(values, null, 2));
+    }
+  });
+
+  async function handleSubmit(e) {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (value === "true1"){
+      setCount (count + 1 );
+    } else if (value === "true2") {
+      setCount (count + 1 );
+    }else if (value === "true3"){
+      setCount(count + 1)
+    }else if (value === "true4"){
+      setCount (count +1)
+    }else{
+      setCount (count + 0)
+    }
+    console.log(formik.values);
+    e.preventDefault();
+    console.log("Click Firebase");
+    try {
+      const docRef = await addDoc(collection(db, "Preguntas"), {
+        Pregunta: formik.values.Pregunta,
+        Rta: formik.values.rta
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
+
     return (
          <div className="container-quiz">
            <img src={logoalteru} alt="logo"/>
@@ -121,7 +171,7 @@ export const Preguntas = () => {
         variant="text"
         activeStep={activeStep}
         nextButton={
-          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+          <Button size="small" onClick={handleSubmit} disabled={activeStep === maxSteps - 1}>
             Next
             {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
           </Button>

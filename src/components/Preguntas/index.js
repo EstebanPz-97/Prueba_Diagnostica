@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 1000,
     flexGrow: 1,
+    color: 'black',
   },
   header: {
     padding:'2px',
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     height: 50,
     paddingLeft: theme.spacing(4),
-    backgroundColor: '#5E35B1',
+    backgroundColor: '#ffffff',
   },
 
 }));

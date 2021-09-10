@@ -3,8 +3,14 @@ import './prueba.css';
 import { useFormik } from 'formik';
 import { db } from '../../firebase/config';
 import { addDoc,collection } from '@firebase/firestore';
+import { useState } from 'react';
+import {  BrowserRouter as Router, Link} from "react-router-dom";
 
 export const Prueba = () =>{
+  const [ingresar,setIngresar]=useState(false);
+
+
+
     const formik= useFormik({
         initialValues:
         {
@@ -14,8 +20,9 @@ export const Prueba = () =>{
     }
     });
     async function handleSubmit(e) {
+        setIngresar(true)
         console.log(formik.values);
-        e.preventDefault();
+        e.preventDefault()
         console.log("Click Firebase");
         try {
           const docRef = await addDoc(collection(db, "usuario"), {
@@ -50,8 +57,20 @@ export const Prueba = () =>{
                 onChange={formik.handleChange} 
                 value={formik.values.correo} required></input>
             </div>
-            <button type="submit">Iniciar prueba</button>
+            
+
+            <button type="submit">inscribirme</button>
             </form>
+            {ingresar?(
+              <div>
+                <Link to="prueba" color="primary">ir prueba</Link>
+            </div>
+              ):(
+                <h2>
+
+                </h2>
+              )}
+
         </div>
     )
 }
